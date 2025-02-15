@@ -120,7 +120,7 @@ export const ChatImpl = memo(
     const [fakeLoading, setFakeLoading] = useState(false);
     const files = useStore(workbenchStore.files);
     const actionAlert = useStore(workbenchStore.alert);
-    const { activeProviders, promptId, autoSelectTemplate, contextOptimizationEnabled } = useSettings();
+    const { activeProviders, promptId, contextOptimizationEnabled } = useSettings();
 
     const [model, setModel] = useState(() => {
       const savedModel = Cookies.get('selectedModel');
@@ -287,7 +287,7 @@ export const ChatImpl = memo(
 
       runAnimation();
 
-      if (!chatStarted && _input && autoSelectTemplate) {
+      if (!chatStarted && _input) {
         setFakeLoading(true);
         setMessages([
           {
@@ -313,9 +313,10 @@ export const ChatImpl = memo(
           model,
           provider,
         });
+        console.log('template===========', template);
 
         if (template !== 'blank') {
-          const temResp = await getTemplates(template, title).catch((e) => {
+          const temResp = await getTemplates('bolt-vite-react', title).catch((e) => {
             if (e.message.includes('rate limit')) {
               toast.warning('Rate limit exceeded. Skipping starter template\n Continuing with blank template');
             } else {
