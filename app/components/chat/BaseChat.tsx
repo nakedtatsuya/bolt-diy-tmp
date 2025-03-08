@@ -396,7 +396,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                             key={provider?.name + ':' + modelList.length}
                             model={model}
                             setModel={setModel}
-                            modelList={modelList}
+                            modelList={modelList.filter((m) => m.name === 'o3-mini')}
                             provider={provider}
                             setProvider={setProvider}
                             providerList={providerList || (PROVIDER_LIST as ProviderInfo[])}
