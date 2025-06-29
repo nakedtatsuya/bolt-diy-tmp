@@ -149,7 +149,10 @@ export function useSettings() {
   useEffect(() => {
     let active = Object.entries(providers)
       // Exclude providers other than OpenAI
-      .filter(([_key, provider]) => provider.settings.enabled && provider.name === 'OpenAI')
+      .filter(
+        ([_key, provider]) =>
+          provider.settings.enabled && (provider.name === 'OpenAI' || provider.name === 'Anthropic'),
+      )
       .map(([_k, p]) => p);
 
     if (!isLocalModel) {

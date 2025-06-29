@@ -12,7 +12,7 @@ import { useMessageParser, usePromptEnhancer, useShortcuts, useSnapScroll } from
 import { description, useChatHistory } from '~/lib/persistence';
 import { chatStore } from '~/lib/stores/chat';
 import { workbenchStore } from '~/lib/stores/workbench';
-import { DEFAULT_PROVIDER, PROMPT_COOKIE_KEY, PROVIDER_LIST } from '~/utils/constants';
+import { DEFAULT_MODEL, DEFAULT_PROVIDER, PROMPT_COOKIE_KEY, PROVIDER_LIST } from '~/utils/constants';
 import { cubicEasingFn } from '~/utils/easings';
 import { createScopedLogger, renderLogger } from '~/utils/logger';
 import { BaseChat } from './BaseChat';
@@ -123,15 +123,9 @@ export const ChatImpl = memo(
     const { activeProviders, promptId, contextOptimizationEnabled } = useSettings();
 
     const [model, setModel] = useState(() => {
-      return 'o3-mini';
+      const savedModel = Cookies.get('selectedModel');
 
-      // // return 'o1';
-
-      // // return 'chatgpt-4o-latest';
-
-      // // const savedModel = Cookies.get('selectedModel');
-
-      // return savedModel || DEFAULT_MODEL;
+      return savedModel || DEFAULT_MODEL;
     });
     const [provider, setProvider] = useState(() => {
       const savedProvider = Cookies.get('selectedProvider');
